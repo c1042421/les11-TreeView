@@ -6,7 +6,39 @@
         xmlns:local="clr-namespace:oefTreeView"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    <DockPanel>
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Data">
+                <MenuItem Header="Jaar" Name="mniJaar" Click="mniJaar_Click"></MenuItem>
+                <MenuItem Header="Klas" Name="mniKlas" IsEnabled="False" Click="mniKlas_Click"></MenuItem>
+                <MenuItem Header="Student" Name="mniStudent" IsEnabled="False" Click="mniStudent_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="lblInfo">info</TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+
+        <TreeView Name="trvJaar" SelectedItemChanged="treeView_item_changed">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:Jaar}" ItemsSource="{Binding Path=LijstSubMenuItems}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=Schooljaar}"></TextBlock>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate DataType="{x:Type local:Klas}" ItemsSource="{Binding Path=LijstSubMenuItems}">
+                    <TextBlock Text="{Binding Path=Klasnaam}"></TextBlock>
+                </HierarchicalDataTemplate>
+
+                <DataTemplate DataType="{x:Type local:Student}">
+                    <TextBlock Text="{Binding Path=Naam}"></TextBlock>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
         
-    </Grid>
+    </DockPanel>
 </Window>
